@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import styled from 'styled-components';
+
+const Button = styled.button``;
+const Label = styled.label``;
+const Greeting = styled.h3``;
 
 export default class HelloWorld extends React.Component {
   static propTypes = {
@@ -21,23 +26,33 @@ export default class HelloWorld extends React.Component {
     this.setState({ name });
   };
 
+  buttonOnClick = (event) => {
+    event.preventDefault();
+    this.setState({name: ''});
+  };
+
   render() {
     return (
       <div>
-        <h3>
-          Hello, {this.state.name}!
-        </h3>
+        {this.state.name !== '' &&
+          <Greeting>
+            Hello, {this.state.name}!
+          </Greeting>
+        }
         <hr />
         <form >
-          <label htmlFor="name">
+          <Label htmlFor="name">
             Say hello to:
-          </label>
+          </Label>
           <input
             id="name"
             type="text"
             value={this.state.name}
             onChange={(e) => this.updateName(e.target.value)}
           />
+          <Button onClick={this.buttonOnClick}>
+            Clear
+          </Button>
         </form>
       </div>
     );
